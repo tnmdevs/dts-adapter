@@ -20,11 +20,11 @@ class DTSRequestListener
     public function handle(DTSRequestEvent $event)
     {
         Transaction::create([
-            'msisdn' => $event->attributes['payload']['msisdn'],
+            'msisdn' => $event->attributes['msisdn'],
             'service' => $event->service,
-            'transaction_id' => $event->attributes['payload']['transaction_id'],
+            'transaction_id' => $event->attributes['transaction_id'],
             'requested_at' => microtime(true) * 1000,
-            'request' => json_encode($event->attributes['payload']),
+            'request' => json_encode($event->attributes),
             'request_body' => $event->attributes['body'],
         ]);
     }

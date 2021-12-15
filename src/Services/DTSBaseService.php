@@ -6,7 +6,6 @@ namespace TNM\DTS\Services;
 use Exception;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Event;
-use TNM\CPS\Services\Awaits;
 use TNM\DTS\Events\DTSExceptionEvent;
 use TNM\DTS\Events\DTSRequestEvent;
 use TNM\DTS\Events\DTSResponseEvent;
@@ -21,12 +20,12 @@ abstract class DTSBaseService
 
     public function query(array $attributes, string $resultClass = DTSResult::class): DTSResult
     {
-        Event::dispatch(new DTSRequestEvent(['payload' => $attributes, 'body' => $attributes], class_basename(static::class)));
+        Event::dispatch(new DTSRequestEvent($attributes, class_basename(static::class)));
 
         try {
             $response = $this->makeRequest($attributes);
 
-            $DTSResponse = new DTSResponse($response->json());
+            $DTSResponse = new DTSResponse($attributes['transaction_id'], $response);
             Event::dispatch(new DTSResponseEvent($attributes, $DTSResponse));
 
             $transaction = $DTSResponse->success() ? $DTSResponse->getTransaction() : null;

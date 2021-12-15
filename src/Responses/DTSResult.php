@@ -2,48 +2,25 @@
 
 namespace TNM\DTS\Responses;
 
+use stdClass;
+
 class DTSResult
 {
-    private ?string $result;
-    private ?string $namespace;
-    private array $prefixes = ['soapenv:', 'api:', 'res:'];
+    private ?stdClass $result;
 
-
-    public function __construct(?string $result, ?string $namespace = null)
+    public function __construct(?string $result)
     {
-        $this->result = $result;
-        $this->namespace = $namespace;
+        $this->result = json_decode($result);
     }
 
     public function getMessage(): string
     {
-        return $this->valid()
-            ? $this->array()['Body']['Result']['Body']['ResultDesc']
-            : 'Request failed. Please try again later';
-    }
-
-    private function valid(): bool
-    {
-        return isset($this->array()['Body']['Result']['Body']);
+        return $this->result->statusDescription;
     }
 
     public function array(): array
     {
-        return $this->toArray($this->result);
-    }
-
-    private function toArray(?string $xml): array
-    {
-        if (!is_string($xml)) return array();
-
-        $value = json_decode(json_encode(simplexml_load_string($this->stripPrefixes($xml))), true);
-        return is_array($value) ? $value : array();
-    }
-
-    private function stripPrefixes(string $xml): string
-    {
-        foreach ($this->prefixes as $prefix) $xml = str_replace($prefix, '', $xml);
-        return $xml;
+        return json_decode(json_encode($this->result), true);
     }
 
     public function hasNoContent(): bool
@@ -53,17 +30,17 @@ class DTSResult
 
     public function hasContent(): bool
     {
-        return isset($this->getBody()[$this->namespace]);
+        return !is_null($this->result->status);
     }
 
     public function getBody(): array
     {
-        return $this->valid() ? $this->array()['Body']['Result']['Body'] : [];
+        return $this->array();
     }
 
     public function getContents(): array
     {
-        return $this->hasContent() ? $this->getBody()[$this->namespace] : [];
+        return $this->array();
     }
 
     public function notSuccessful(): bool
@@ -73,11 +50,11 @@ class DTSResult
 
     public function success(): bool
     {
-        return $this->status() == 0;
+        return $this->result->status == 202;
     }
 
     public function status(): string
     {
-        return $this->valid() ? $this->array()['Body']['Result']['Body']['ResultCode'] : 500;
+        return $this->result->status;
     }
 }

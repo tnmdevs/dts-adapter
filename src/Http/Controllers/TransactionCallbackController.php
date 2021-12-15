@@ -9,16 +9,16 @@ use TransactionRequest;
 
 class TransactionCallbackController extends Controller
 {
-    public function __invoke(string $conversation, TransactionRequest $request): JsonResponse
+    public function __invoke(string $transaction, TransactionRequest $request): JsonResponse
     {
         $now = microtime(true) * 1000;
         $result = new DTSResult($request->getContent());
 
-        $conversation = Transaction::findById($conversation);
+        $transaction = Transaction::findById($transaction);
 
-        $conversation->update([
+        $transaction->update([
             'result_at' => $now,
-            'result_milliseconds' => $now - $conversation->{'requested_at'},
+            'result_milliseconds' => $now - $transaction->{'requested_at'},
             'result_body' => $request->getContent(),
             'result_message' => $result->getMessage(),
             'status' => $result->status(),

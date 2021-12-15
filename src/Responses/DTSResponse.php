@@ -2,29 +2,18 @@
 
 namespace TNM\DTS\Responses;
 
+use Illuminate\Http\Client\Response;
 use TNM\DTS\Models\Transaction;
 
 class DTSResponse
 {
-    protected ?string $response;
-    private array $prefixes = ['soapenv:', 'api:', 'res:'];
+    protected ?Response $response;
+    private string $transactionId;
 
-    public function __construct(?string $response = '')
+    public function __construct(string $transactionId, ?Response $response = null)
     {
         $this->response = $response;
-    }
-
-    public function getConversation(): ?Conversation
-    {
-        $conversationId = $this->array()['Body']['Response']['Header']['OriginatorConversationID'];
-        if (is_null($conversationId)) return null;
-
-        return Conversation::where('conversation_id', $conversationId)->first();
-    }
-
-    public function customerDoesNotExist(): bool
-    {
-        return $this->status() == 20000003;
+        $this->transactionId = $transactionId;
     }
 
     public function notSuccessful(): bool
@@ -34,63 +23,31 @@ class DTSResponse
 
     public function success(): bool
     {
-        return $this->status() == 0;
+        return $this->response->successful() && $this->response['status'] == 1;
     }
 
     public function status(): string
     {
-
-        return $this->valid() ? $this->array()['Body']['Response']['Body']['ResponseCode'] : 500;
-    }
-
-    private function valid(): bool
-    {
-        return isset($this->array()['Body']['Response']['Body']);
+        return $this->response->status();
     }
 
     public function array(): array
     {
-        return $this->toArray($this->response);
-    }
-
-    private function toArray(?string $xml): array
-    {
-        if (!is_string($xml)) return array();
-
-        $value = json_decode(json_encode(simplexml_load_string($this->stripPrefixes($xml))), true);
-        return is_array($value) ? $value : array();
-    }
-
-    private function stripPrefixes(string $xml): string
-    {
-        foreach ($this->prefixes as $prefix) $xml = str_replace($prefix, '', $xml);
-        return $xml;
+        return $this->response->json();
     }
 
     public function getMessage(): string
     {
-        $message = $this->valid()
-            ? $this->array()['Body']['Response']['Body']['ResponseDesc']
-            : 'Request failed. Please try again later';
-
-        return (new ErrorMessageTransformer($message))->getMessage();
+       return $this->response->json('data.status');
     }
 
     public function toString(): string
     {
-        return $this->response;
-    }
-
-    public function isValidationError(): ?bool
-    {
-        return in_array($this->status(), CBS::ERROR_CODES);
+        return $this->response->body();
     }
 
     public function getTransaction():?Transaction
     {
-        $conversationId = $this->array()['Body']['Response']['Header']['OriginatorConversationID'];
-        if (is_null($conversationId)) return null;
-
-        return Transaction::where('conversation_id', $conversationId)->first();
+        return Transaction::where('transaction_id', $this->transactionId)->first();
     }
 }

@@ -13,7 +13,7 @@ class TransactionIDFactory
         $this->prefix = $prefix ?? substr(config('app.name'), 0, 3);
     }
 
-    public function make()
+    public function make(): string
     {
         return substr(sprintf("%s%s%s", $this->prefix, $this->getTime(), $this->getSuffix()), 0, $this->length);
     }
