@@ -4,6 +4,10 @@ namespace TNM\DTS\Providers;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use TNM\DTS\Services\BundleSubscription\BundleSubscriptionService;
+use TNM\DTS\Services\BundleSubscription\IBundleSubscriptionService;
+use TNM\DTS\Services\QueryBundles\IQueryBundlesService;
+use TNM\DTS\Services\QueryBundles\QueryBundleService;
 
 class DTSServiceProvider extends ServiceProvider
 {
@@ -25,6 +29,7 @@ class DTSServiceProvider extends ServiceProvider
 
     public function register()
     {
-
+        $this->app->bind(IQueryBundlesService::class, QueryBundleService::class);
+        $this->app->bind(IBundleSubscriptionService::class, BundleSubscriptionService::class);
     }
 }
