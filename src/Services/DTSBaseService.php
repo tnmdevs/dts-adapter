@@ -16,8 +16,11 @@ use TNM\DTS\Responses\DTSResult;
 abstract class DTSBaseService
 {
     use Awaits;
+
     abstract protected function makeRequest(array $attributes): Response;
-    public function query(array $attributes, string $resultClass = DTSResult::class): DTSResult{
+
+    public function query(array $attributes, string $resultClass = DTSResult::class): DTSResult
+    {
         Event::dispatch(new DTSRequestEvent(['payload' => $attributes, 'body' => $attributes], class_basename(static::class)));
 
         try {
