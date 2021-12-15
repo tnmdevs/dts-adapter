@@ -1,0 +1,38 @@
+{
+    "name": "tnmdev/dts",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "TNM Developers",
+            "email": "developers@tnm.co.mw"
+        }
+    ],
+    "require": {
+        "bluecloud/response-builder": "^1.5",
+        "tnmdev/msisdn-helpers": "^1.2"
+    },
+    "require-dev": {
+        "laravel/framework": "^8.0",
+        "orchestra/testbench": "^6.0",
+        "guzzlehttp/guzzle": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "TNM\\DTS\\": "src"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@php ./vendor/bin/testbench package:discover --ansi"
+        ],
+        "test": "vendor/bin/phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "TNM\\DTS\\Providers\\DTSServiceProvider"
+            ]
+        }
+    }
+}
