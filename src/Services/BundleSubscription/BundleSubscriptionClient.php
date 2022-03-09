@@ -2,7 +2,7 @@
 
 namespace TNM\DTS\Services\BundleSubscription;
 
-use TNM\CPS\Services\IDTSClient;
+use TNM\DTS\Services\IDTSClient;
 use TNM\DTS\Factories\TransactionIDFactory;
 use TNM\DTS\Responses\DTSResult;
 

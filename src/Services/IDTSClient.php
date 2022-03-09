@@ -1,6 +1,6 @@
 <?php
 
-namespace TNM\CPS\Services;
+namespace TNM\DTS\Services;
 
 use TNM\DTS\Responses\DTSResult;
 

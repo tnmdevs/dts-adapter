@@ -2,9 +2,9 @@
 
 namespace TNM\DTS\Services\QueryBundles;
 
-use TNM\DTS\Responses\DTSResult;
+use TNM\DTS\Responses\IQueryBundleResponse;
 
 interface IQueryBundlesService
 {
-    public function query(array $attributes, string $resultClass = DTSResult::class): DTSResult;
+    public function query(string $msisdn): IQueryBundleResponse;
 }

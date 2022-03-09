@@ -11,5 +11,7 @@ return [
     'callback' => [
         'prefix' => 'api/dts',
         'middleware' => null
-    ]
+    ],
+
+    'timeout' => 10
 ];
