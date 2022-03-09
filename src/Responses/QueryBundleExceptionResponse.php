@@ -2,7 +2,11 @@
 
 namespace TNM\DTS\Responses;
 
-class QueryBundleExceptionResponse implements IQueryBundleResponse
+class QueryBundleExceptionResponse extends DTSResponse implements IQueryBundleResponse
 {
 
+    public function getBundles(): array
+    {
+        return [];
+    }
 }
