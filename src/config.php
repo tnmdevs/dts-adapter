@@ -2,6 +2,7 @@
 
 return [
     'base_url' => 'http://localhost',
+    'user_agent' => null,
 
     'await' => [
         'loops' => 100,

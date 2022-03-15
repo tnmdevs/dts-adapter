@@ -19,6 +19,10 @@ class QueryBundleService implements IQueryBundlesService
     protected function makeRequest(string $msisdn): Response
     {
         return Http::timeout(config('dts.timeout'))
+            ->withHeaders([
+                'User-Agent' => config('dts.user_agent'),
+                'Content-Type' => 'application/json'
+            ])
             ->get(sprintf('%s/ccc-handlers/dt/bundles?msisdn=%s',
                     config('dts.base_url'),
                     $msisdn)
