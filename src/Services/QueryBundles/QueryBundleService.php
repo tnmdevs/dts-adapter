@@ -23,7 +23,7 @@ class QueryBundleService implements IQueryBundlesService
                 'User-Agent' => config('dts.user_agent'),
                 'Content-Type' => 'application/json'
             ])
-            ->get(sprintf('%s/ccc-handlers/dt/bundles?msisdn=%s',
+            ->get(sprintf('%s/ccc-handlers/dt/bundles?msisdn=%s&location=999-04-123-1234',
                     config('dts.base_url'),
                     $msisdn)
             );
