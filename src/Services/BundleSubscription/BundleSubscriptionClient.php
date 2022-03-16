@@ -22,7 +22,7 @@ class BundleSubscriptionClient implements IDTSClient
         float  $price,
         float  $size,
         string $tariffId,
-        string $counterId,
+        string $counterId
     )
     {
         $this->msisdn = msisdn($msisdn)->internationalize();
