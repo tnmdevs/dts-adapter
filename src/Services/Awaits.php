@@ -12,7 +12,7 @@ trait Awaits
     {
         for ($i = 0; $i < config('dts.await.loops'); $i++) {
             if ($transaction->fresh()->hasResult()) break;
-            usleep(config('dts.await.sleep_milliseconds'));
+            usleep(config('dts.await.sleep_milliseconds') * 1000);
         }
 
         Event::dispatch(new DTSResultEvent($transaction->fresh()));
