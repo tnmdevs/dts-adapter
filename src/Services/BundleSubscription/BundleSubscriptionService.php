@@ -14,7 +14,7 @@ class BundleSubscriptionService extends DTSBaseService implements IBundleSubscri
             'User-Agent' => config('dts.user_agent'),
             'x-client-used' => config('dts.user_agent')
         ])
-            ->timeout('dts.timeout')
+            ->timeout(config('dts.timeout'))
             ->post(sprintf('%s/ccc-handlers/dt/bundles?msisdn=%s', config('dts.base_url'), $attributes['msisdn']), [
                 'bundleCacheId' => $attributes['bundleCacheId'],
                 'price' => $attributes['price'],
