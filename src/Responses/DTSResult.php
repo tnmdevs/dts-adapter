@@ -50,10 +50,10 @@ class DTSResult
 
     public function success(): bool
     {
-        return $this->result->status == 202;
+        return $this->status() == 202;
     }
 
-    public function status(): string
+    public function status(): int
     {
         return $this->result->status;
     }

@@ -10,7 +10,8 @@
     ],
     "require": {
         "bluecloud/response-builder": "^1.5",
-        "tnmdev/msisdn-helpers": "^1.2"
+        "tnmdev/msisdn-helpers": "^1.2",
+        "ext-json": "*"
     },
     "require-dev": {
         "laravel/framework": "^8.0",

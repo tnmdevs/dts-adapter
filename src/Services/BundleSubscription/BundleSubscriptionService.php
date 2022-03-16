@@ -13,13 +13,15 @@ class BundleSubscriptionService extends DTSBaseService implements IBundleSubscri
         return Http::withHeaders([
             'User-Agent' => config('dts.user_agent'),
             'x-client-used' => config('dts.user_agent')
-        ])->post(sprintf('%s/ccc-handlers/dt/bundles?msisdn=%s', config('dts.base_url'), $attributes['msisdn']), [
-            'bundleCacheId' => $attributes['bundleCacheId'],
-            'price' => $attributes['price'],
-            'size' => $attributes['size'],
-            'callbackUrl' => $attributes['callbackUrl'],
-            'tariffId' => $attributes['tariffId'],
-            'counterId' => $attributes['counterId'],
-        ]);
+        ])
+            ->timeout('dts.timeout')
+            ->post(sprintf('%s/ccc-handlers/dt/bundles?msisdn=%s', config('dts.base_url'), $attributes['msisdn']), [
+                'bundleCacheId' => $attributes['bundleCacheId'],
+                'price' => $attributes['price'],
+                'size' => $attributes['size'],
+                'callbackUrl' => $attributes['callbackUrl'],
+                'tariffId' => $attributes['tariffId'],
+                'counterId' => $attributes['counterId'],
+            ]);
     }
 }
