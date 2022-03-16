@@ -10,7 +10,10 @@ class BundleSubscriptionService extends DTSBaseService implements IBundleSubscri
 {
     protected function makeRequest(array $attributes): Response
     {
-        return Http::post(sprintf('%s/ccc-handlers/dt/bundles?msisdn=%s', config('dts.base_url'), $attributes['msisdn']), [
+        return Http::withHeaders([
+            'User-Agent' => config('dts.user_agent'),
+            'x-client-used' => config('dts.user_agent')
+        ])->post(sprintf('%s/ccc-handlers/dt/bundles?msisdn=%s', config('dts.base_url'), $attributes['msisdn']), [
             'bundleCacheId' => $attributes['bundleCacheId'],
             'price' => $attributes['price'],
             'size' => $attributes['size'],
