@@ -25,7 +25,7 @@ class BundleSubscriptionClient implements IDTSClient
         string $counterId,
     )
     {
-        $this->msisdn = $msisdn;
+        $this->msisdn = msisdn($msisdn)->internationalize();
         $this->bundleCacheId = $bundleCacheId;
         $this->price = $price;
         $this->size = $size;

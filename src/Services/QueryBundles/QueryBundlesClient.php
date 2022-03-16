@@ -11,8 +11,7 @@ class QueryBundlesClient
 
     public function __construct(string $msisdn)
     {
-//       TODO find out the number format
-        $this->msisdn = msisdn($msisdn)->humanize();
+        $this->msisdn = msisdn($msisdn)->internationalize();
         $this->service = app(IQueryBundlesService::class);
     }
 
