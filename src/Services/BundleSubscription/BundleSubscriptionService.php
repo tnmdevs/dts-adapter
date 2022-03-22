@@ -41,7 +41,7 @@ class BundleSubscriptionService implements IBundleSubscriptionService
         try {
             $response = $this->makeRequest($attributes);
 
-            $DTSResponse = new DTSResponse($attributes['transaction_id'], $response);
+            $DTSResponse = new DTSResponse($attributes['trans_id'], $response);
             Event::dispatch(new DTSResponseEvent($attributes, $DTSResponse));
 
             $transaction = $DTSResponse->success() ? $DTSResponse->getTransaction() : null;

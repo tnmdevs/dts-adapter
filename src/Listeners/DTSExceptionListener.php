@@ -19,7 +19,7 @@ class DTSExceptionListener
 
     public function handle(DTSExceptionEvent $event)
     {
-        $conversation = Transaction::findById($event->attributes['transaction_id']);
+        $conversation = Transaction::findById($event->attributes['trans_id']);
 
         $now = microtime(true) * 1000;
         $conversation->update([
