@@ -44,7 +44,8 @@ class BundleSubscriptionClient implements IDTSClient
             'bundleCacheId' => $this->bundleCacheId,
             'price' => $this->price,
             'size' => $this->size,
-            'callbackUrl' => url(sprintf('%s/callback/%s', config('dts.callback.prefix'), $transactionId)),
+            'callbackUrl' => sprintf('%s,%s/callback/%s', config('dts.callback_ip'), config('dts.callback.prefix'),
+                $transactionId),
             'tariffId' => $this->tariffId,
             'counterId' => $this->counterId,
         ]);
