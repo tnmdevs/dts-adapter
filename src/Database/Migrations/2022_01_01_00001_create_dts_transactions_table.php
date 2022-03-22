@@ -24,7 +24,6 @@ class CreateDTSTransactionsTable extends Migration
             $table->integer('response_milliseconds')->nullable();
             $table->integer('result_milliseconds')->nullable();
             $table->json('request');
-            $table->longText('request_body');
             $table->longText('response_body')->nullable();
             $table->longText('result_body')->nullable();
             $table->string('response_message')->nullable();

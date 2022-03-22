@@ -25,7 +25,8 @@ class QueryBundleService implements IQueryBundlesService
             ])
             ->get(sprintf('%s/ccc-handlers/dt/bundles?msisdn=%s&location=999-04-123-1234',
                     config('dts.base_url'),
-                    $msisdn)
+                    $msisdn
+                )
             );
     }
 

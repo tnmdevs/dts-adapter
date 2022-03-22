@@ -15,4 +15,9 @@ class QueryBundlesResponse extends DTSResponse implements IQueryBundleResponse
         return collect($this->getBundles())->filter(fn (array $bundle) => $bundle['type'] == 'SNAPI')
             ->values()->toArray();
     }
+
+    public function getMessage(): string
+    {
+        return $this->response->reason();
+    }
 }
