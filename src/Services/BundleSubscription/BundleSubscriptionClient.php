@@ -39,7 +39,7 @@ class BundleSubscriptionClient implements IDTSClient
         $transactionId = (new TransactionIDFactory())->make();
 
         return $this->service->query([
-            'transaction_id' => $transactionId,
+            'trans_id' => $transactionId,
             'msisdn' => $this->msisdn,
             'bundleCacheId' => $this->bundleCacheId,
             'price' => $this->price,
