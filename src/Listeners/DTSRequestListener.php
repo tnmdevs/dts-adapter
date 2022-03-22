@@ -25,7 +25,6 @@ class DTSRequestListener
             'transaction_id' => $event->attributes['trans_id'],
             'requested_at' => microtime(true) * 1000,
             'request' => json_encode($event->attributes),
-            'request_body' => $event->attributes['body'],
         ]);
     }
 }
