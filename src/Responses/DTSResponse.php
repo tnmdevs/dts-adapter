@@ -46,6 +46,16 @@ class DTSResponse
         return $this->response->body();
     }
 
+    private function isAsync(): bool
+    {
+        return $this->response->json('data.status') && $this->response->json('data.status') == 'RECEIVED';
+    }
+
+    public function isSync(): bool
+    {
+        return !$this->isAsync();
+    }
+
     public function getTransaction():?Transaction
     {
         return Transaction::where('transaction_id', $this->transactionId)->first();
