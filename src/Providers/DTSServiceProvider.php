@@ -31,5 +31,7 @@ class DTSServiceProvider extends ServiceProvider
     {
         $this->app->bind(IQueryBundlesService::class, QueryBundleService::class);
         $this->app->bind(IBundleSubscriptionService::class, BundleSubscriptionService::class);
+
+        $this->app->register(DTSEventServiceProvider::class);
     }
 }

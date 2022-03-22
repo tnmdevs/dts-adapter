@@ -13,9 +13,9 @@ use TNM\DTS\Listeners\DTSResponseListener;
 class DTSEventServiceProvider extends ServiceProvider
 {
     protected $listen = [
-        DTSResponseEvent::class => DTSResponseListener::class,
-        DTSRequestEvent::class => DTSRequestListener::class,
-        DTSExceptionEvent::class => DTSExceptionListener::class
+        DTSResponseEvent::class => [DTSResponseListener::class],
+        DTSRequestEvent::class => [DTSRequestListener::class],
+        DTSExceptionEvent::class => [DTSExceptionListener::class]
     ];
 
     public function boot()
