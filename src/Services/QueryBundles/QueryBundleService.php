@@ -10,9 +10,9 @@ use TNM\DTS\Events\DTSExceptionEvent;
 use TNM\DTS\Events\DTSRequestEvent;
 use TNM\DTS\Events\DTSResponseEvent;
 use TNM\DTS\Factories\TransactionIDFactory;
-use TNM\DTS\Responses\IQueryBundleResponse;
-use TNM\DTS\Responses\QueryBundleExceptionResponse;
-use TNM\DTS\Responses\QueryBundlesResponse;
+use TNM\DTS\Responses\QueryBundles\FailedQueryBundlesResponse;
+use TNM\DTS\Responses\QueryBundles\IQueryBundlesResponse;
+use TNM\DTS\Responses\QueryBundles\QueryBundlesResponse;
 
 class QueryBundleService implements IQueryBundlesService
 {
@@ -30,7 +30,7 @@ class QueryBundleService implements IQueryBundlesService
             );
     }
 
-    public function query(string $msisdn): IQueryBundleResponse
+    public function query(string $msisdn): IQueryBundlesResponse
     {
         $transactionId = (new TransactionIDFactory())->make();
         $attributes = ['msisdn' => $msisdn, 'trans_id' => $transactionId];
@@ -44,7 +44,7 @@ class QueryBundleService implements IQueryBundlesService
 
         } catch (Exception $exception) {
             Event::dispatch(new DTSExceptionEvent($attributes, $exception));
-            return new QueryBundleExceptionResponse();
+            return new FailedQueryBundlesResponse($exception->getMessage());
         }
     }
 }

@@ -2,9 +2,10 @@
 
 namespace TNM\DTS\Services\BundleSubscription;
 
-use TNM\DTS\Responses\DTSResult;
+
+use TNM\DTS\Responses\BundleSubscription\IBundleSubscriptionResponse;
 
 interface IBundleSubscriptionService
 {
-    public function query(array $attributes): DTSResult;
+    public function query(array $attributes): IBundleSubscriptionResponse;
 }

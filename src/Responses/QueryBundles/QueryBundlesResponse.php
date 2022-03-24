@@ -1,18 +1,15 @@
 <?php
 
-namespace TNM\DTS\Responses;
+namespace TNM\DTS\Responses\QueryBundles;
 
-class QueryBundlesResponse extends DTSResponse implements IQueryBundleResponse
+use TNM\DTS\Responses\DTSResponse;
+
+class QueryBundlesResponse extends DTSResponse implements IQueryBundlesResponse
 {
-
-    public function getBundles(): array
-    {
-        return $this->response->json('data');
-    }
 
     public function getSnapiBundles(): array
     {
-        return collect($this->getBundles())
+        return collect($this->response->json('data'))
             ->filter(fn (array $bundle) => $bundle['type'] == 'SNAPI')
             ->filter(fn (array $bundle) => !preg_match('/gift/i', $bundle['name']))
             ->values()->toArray();

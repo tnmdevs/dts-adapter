@@ -2,11 +2,10 @@
 
 namespace TNM\DTS\Services\BundleSubscription;
 
-use TNM\DTS\Services\IDTSClient;
 use TNM\DTS\Factories\TransactionIDFactory;
-use TNM\DTS\Responses\DTSResult;
+use TNM\DTS\Responses\BundleSubscription\IBundleSubscriptionResponse;
 
-class BundleSubscriptionClient implements IDTSClient
+class BundleSubscriptionClient
 {
     private string $msisdn;
     private string $bundleCacheId;
@@ -34,7 +33,7 @@ class BundleSubscriptionClient implements IDTSClient
         $this->service = app(IBundleSubscriptionService::class);
     }
 
-    public function query(): DTSResult
+    public function query(): IBundleSubscriptionResponse
     {
         $transactionId = (new TransactionIDFactory())->make();
 

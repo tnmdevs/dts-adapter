@@ -5,7 +5,7 @@ namespace TNM\DTS\Responses;
 use Illuminate\Http\Client\Response;
 use TNM\DTS\Models\Transaction;
 
-class DTSResponse
+abstract class DTSResponse
 {
     protected ?Response $response;
     private string $transactionId;

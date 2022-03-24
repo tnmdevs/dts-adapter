@@ -2,7 +2,8 @@
 
 namespace TNM\DTS\Services\QueryBundles;
 
-use TNM\DTS\Responses\IQueryBundleResponse;
+
+use TNM\DTS\Responses\QueryBundles\IQueryBundlesResponse;
 
 class QueryBundlesClient
 {
@@ -16,7 +17,7 @@ class QueryBundlesClient
     }
 
 
-    public function query(): IQueryBundleResponse
+    public function query(): IQueryBundlesResponse
     {
         return $this->service->query($this->msisdn);
     }
