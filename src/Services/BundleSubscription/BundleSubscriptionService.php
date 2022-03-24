@@ -38,11 +38,9 @@ class BundleSubscriptionService implements IBundleSubscriptionService
         Event::dispatch(new DTSRequestEvent($attributes, class_basename(static::class)));
 
         try {
-            $response = $this->makeRequest($attributes);
-
-            $DTSResponse = new BundleSubscriptionResponse($attributes['trans_id'], $response);
-            Event::dispatch(new DTSResponseEvent($attributes, $DTSResponse));
-            return $DTSResponse;
+            $response = new BundleSubscriptionResponse($attributes['trans_id'], $this->makeRequest($attributes));
+            Event::dispatch(new DTSResponseEvent($attributes, $response));
+            return $response;
 
         } catch (Exception $exception) {
             Event::dispatch(new DTSExceptionEvent($attributes, $exception));
