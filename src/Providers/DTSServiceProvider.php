@@ -19,12 +19,6 @@ class DTSServiceProvider extends ServiceProvider
             $this->publishes([__DIR__ . '/../config.php' => config_path('dts.php')], 'config');
         }
 
-        Route::group([
-            'prefix' => config('dts.callback.prefix'),
-            'middleware' => config('dts.callback.middleware')
-        ], function () {
-            $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
-        });
     }
 
     public function register()
