@@ -38,7 +38,7 @@ abstract class DTSResponse
 
     public function getMessage(): string
     {
-       return $this->response->json('data.status');
+        return $this->success() ? $this->response->json('data.status') : '';
     }
 
     public function toString(): string
@@ -56,7 +56,7 @@ abstract class DTSResponse
         return !$this->isAsync();
     }
 
-    public function getTransaction():?Transaction
+    public function getTransaction(): ?Transaction
     {
         return Transaction::where('transaction_id', $this->transactionId)->first();
     }
