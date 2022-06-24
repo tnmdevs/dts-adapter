@@ -43,7 +43,7 @@ class BundleSubscriptionClient
             'bundleCacheId' => $this->bundleCacheId,
             'price' => $this->price,
             'size' => $this->size,
-            'callbackUrl' => sprintf('%s/%s/callback/%s', config('dts.callback_ip'), config('dts.callback.prefix'),
+            'callbackUrl' => sprintf('%s/%s/callback/%s', config('dts.callback.ip'), config('dts.callback.prefix'),
                 $transactionId),
             'tariffId' => $this->tariffId,
             'counterId' => $this->counterId,
