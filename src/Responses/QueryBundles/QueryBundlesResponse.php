@@ -12,6 +12,7 @@ class QueryBundlesResponse extends DTSResponse implements IQueryBundlesResponse
         return collect($this->response->json('data'))
             ->filter(fn (array $bundle) => $bundle['type'] == 'SNAPI')
             ->filter(fn (array $bundle) => !preg_match('/gift/i', $bundle['name']))
+            ->filter(fn (array $bundle) => !preg_match('/test/i', $bundle['name']))
             ->values()->toArray();
     }
 
