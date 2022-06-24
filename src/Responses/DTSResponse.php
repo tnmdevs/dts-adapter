@@ -38,7 +38,9 @@ abstract class DTSResponse
 
     public function getMessage(): string
     {
-        return $this->success() ? $this->response->json('data.status') : '';
+        return $this->success()
+            ? $this->response->json('data.status')
+            : 'Failed to process request';
     }
 
     public function toString(): string
